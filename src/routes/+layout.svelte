@@ -3,7 +3,6 @@
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import favicon from '#lib/assets/favicon.svg';
-	import Lights from '#lib/components/decor/Lights.svelte';
 	import Snow from '#lib/components/decor/Snow.svelte';
 	import Splash from '#lib/components/decor/Splash.svelte';
 	import type { LayoutProps } from './$types';
@@ -45,7 +44,6 @@
 			{/each}
 		</ul>
 	</nav>
-	<div class="absolute inset-x-0 top-full"><Lights /></div>
 </header>
 
 <main class="mx-auto max-w-6xl px-4 pt-10 pb-16">
