@@ -12,7 +12,7 @@ dist/
 # PERSONAL DATA — never commit
 *.csv
 !tests/fixtures/**/*.csv
-participants*
+/participants*
 *.b64
 private/
 
