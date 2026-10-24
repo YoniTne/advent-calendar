@@ -2,7 +2,7 @@
 //   npx tsx scripts/draw.ts          draw every calendar day up to today (catch-up included)
 //   npx tsx scripts/draw.ts verify   recompute every published day
 // Env: PARTICIPANTS_CSV_B64 (private list, base64; optional for verify),
-//      DRAW_DATE=YYYY-MM-DD (simulation only, refused on GitHub Actions).
+//      DRAW_DATE=YYYY-MM-DD (simulation only; on GitHub Actions, allowed only in the draw-rehearsal workflow).
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { validateLots } from '../src/lib/lots';
 import { parisDate } from '../src/lib/paris';
@@ -28,7 +28,8 @@ function targetDate(): string | null {
 	const now = Date.now();
 	const simulated = process.env.DRAW_DATE;
 	if (simulated) {
-		if (process.env.GITHUB_ACTIONS === 'true') throw new Error('DRAW_DATE is forbidden on GitHub Actions');
+		if (process.env.GITHUB_ACTIONS === 'true' && process.env.GITHUB_WORKFLOW !== 'draw-rehearsal')
+			throw new Error('DRAW_DATE is forbidden on GitHub Actions outside the draw-rehearsal workflow');
 		if (drawInstant(simulated) * 1000 > now) throw new Error(`DRAW_DATE ${simulated}: its drand round does not exist yet`);
 		log(`simulation: drawing up to ${simulated}`);
 		return simulated;
