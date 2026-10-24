@@ -3,6 +3,8 @@
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import favicon from '#lib/assets/favicon.svg';
+	import Lights from '#lib/components/decor/Lights.svelte';
+	import Snow from '#lib/components/decor/Snow.svelte';
 	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
@@ -16,13 +18,15 @@
 <svelte:head>
 	<link rel="icon" href={favicon} />
 	<meta name="theme-color" content="#f9f6ef" media="(prefers-color-scheme: light)" />
-	<meta name="theme-color" content="#0f1c17" media="(prefers-color-scheme: dark)" />
+	<meta name="theme-color" content="#0c1916" media="(prefers-color-scheme: dark)" />
 </svelte:head>
 
-<header class="material sticky top-0 z-40 border-b border-border/60">
+<Snow />
+
+<header class="material sticky top-0 z-40">
 	<nav class="mx-auto flex h-14 max-w-4xl items-center justify-between px-4">
 		<a href={resolve('/')} class="flex items-center gap-2 font-semibold tracking-tight">
-			<span aria-hidden="true" class="text-gold">✦</span>
+			<span aria-hidden="true" class="text-gold twinkle">✦</span>
 			<span>Club électronique</span>
 		</a>
 		<ul class="flex gap-1 text-sm">
@@ -39,9 +43,10 @@
 			{/each}
 		</ul>
 	</nav>
+	<div class="absolute inset-x-0 top-full"><Lights /></div>
 </header>
 
-<main class="mx-auto max-w-4xl px-4 pt-8 pb-16">
+<main class="mx-auto max-w-4xl px-4 pt-10 pb-16">
 	{@render children()}
 </main>
 
