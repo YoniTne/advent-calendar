@@ -3,6 +3,7 @@
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import favicon from '#lib/assets/favicon.svg';
+	import Logo from '#lib/components/decor/Logo.svelte';
 	import Snow from '#lib/components/decor/Snow.svelte';
 	import Splash from '#lib/components/decor/Splash.svelte';
 	import type { LayoutProps } from './$types';
@@ -10,8 +11,9 @@
 	let { children }: LayoutProps = $props();
 
 	const links = [
-		{ href: resolve('/'), label: 'Calendrier' },
-		{ href: resolve('/reglement'), label: 'Règlement' }
+		// On phones the logo already leads home, so this link only shows from sm up.
+		{ href: resolve('/'), label: 'Calendrier', phone: false },
+		{ href: resolve('/reglement'), label: 'Règlement', phone: true }
 	];
 </script>
 
@@ -25,14 +27,14 @@
 <Snow />
 
 <header class="material sticky top-0 z-40">
-	<nav class="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
-		<a href={resolve('/')} class="flex items-center gap-2 font-semibold tracking-tight">
-			<span aria-hidden="true" class="text-gold twinkle">✦</span>
-			<span>Club électronique</span>
+	<nav class="flex h-14 items-center justify-between px-4 sm:px-8">
+		<a href={resolve('/')} class="flex items-center gap-2.5 font-semibold tracking-tight whitespace-nowrap">
+			<Logo class="size-7 text-gold drop-shadow-[0_0_0.5rem_var(--gold)]" strokeWidth={14} />
+			<span>Calendrier de l'avent</span>
 		</a>
 		<ul class="flex gap-1 text-sm">
 			{#each links as link (link.href)}
-				<li>
+				<li class={[!link.phone && 'max-sm:hidden']}>
 					<a
 						href={link.href}
 						aria-current={page.url.pathname === link.href ? 'page' : undefined}
@@ -46,11 +48,11 @@
 	</nav>
 </header>
 
-<main class="mx-auto max-w-6xl px-4 pt-10 pb-16">
+<main class="px-4 pt-10 pb-16 sm:px-8">
 	{@render children()}
 </main>
 
-<footer class="mx-auto max-w-6xl px-4 pb-10 text-center text-xs text-muted-foreground">
+<footer class="px-4 pb-10 text-center text-xs text-muted-foreground">
 	Club électronique de l'INSSET · Tirage vérifiable,
 	<a class="underline underline-offset-2" href="https://github.com/YoniTne/advent-calendar">code public</a>
 	· Photo :
