@@ -48,11 +48,11 @@
 	</nav>
 </header>
 
-<main class="px-4 pt-10 pb-16 sm:px-8">
+<main class="w-full flex-1 px-4 pt-10 pb-16 sm:px-8">
 	{@render children()}
 </main>
 
-<footer class="px-4 pb-10 text-center text-xs text-muted-foreground">
+<footer class="px-4 pt-4 pb-6 text-center text-xs text-muted-foreground">
 	Club électronique de l'INSSET · Tirage vérifiable,
 	<a class="underline underline-offset-2" href="https://github.com/YoniTne/advent-calendar">code public</a>
 	· Photo :

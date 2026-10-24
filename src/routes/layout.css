@@ -114,8 +114,9 @@
 	html {
 		background-color: var(--background);
 	}
+	/* Column layout so the footer sits at the bottom of the screen on short pages. */
 	body {
-		@apply text-foreground;
+		@apply flex flex-col text-foreground;
 		min-height: 100dvh;
 	}
 	/* Pre-blurred Christmas photo (CC0, Annie Spratt) under a veil. A fixed layer rather than
