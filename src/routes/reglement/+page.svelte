@@ -37,6 +37,7 @@
 	<title>Règlement & fonctionnement · Calendrier de l'avent</title>
 </svelte:head>
 
+<div class="mx-auto max-w-6xl">
 <h1 class="text-display">Règlement & fonctionnement</h1>
 
 <!-- Desktop: the rules on the left, the fairness proof on the right; both columns end at the same height. -->
@@ -71,4 +72,5 @@
 			{/each}
 		</dl>
 	</section>
+</div>
 </div>

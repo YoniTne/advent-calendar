@@ -78,9 +78,10 @@
 	<meta name="description" content="Un lot par jour du 1er au 24 décembre, tiré au sort chaque matin à 8h." />
 </svelte:head>
 
-<!-- Phone: title, tree, today. Desktop: title and today on the left, the tree on the right. -->
-<div class="grid items-start gap-x-14 lg:grid-cols-[minmax(0,1fr)_auto] lg:grid-rows-[auto_1fr]">
-<div class="lg:col-start-1 lg:row-start-1">
+<!-- Phone: title, tree, today. Desktop: the tree centred in the left half,
+     title and today centred in the right half (outer rows absorb the extra height). -->
+<div class="grid lg:grid-cols-2 lg:grid-rows-[1fr_auto_auto_1fr] lg:gap-x-8">
+<div class="lg:col-start-2 lg:row-start-2 lg:mx-auto lg:w-full lg:max-w-xl">
 	<p class="glass inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
 		<span class="text-gold">✦</span> Club électronique · INSSET
 	</p>
@@ -92,7 +93,7 @@
 </div>
 
 <section
-	class="mt-6 [--s:min(11.8vw,4.75rem)] lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:[--s:min(6.2vw,4.75rem)]"
+	class="mt-6 [--s:min(11.8vw,4.75rem)] lg:col-start-1 lg:row-span-4 lg:row-start-1 lg:mt-0 lg:self-center lg:[--s:min(5.2vw,4.75rem)]"
 	aria-labelledby="grid-title"
 >
 	<h2 id="grid-title" class="sr-only">Les 24 cadeaux</h2>
@@ -103,7 +104,7 @@
 	</div>
 </section>
 
-<section class="mt-10 lg:col-start-1 lg:row-start-2 lg:mt-8" aria-label="Aujourd'hui">
+<section class="mt-10 lg:col-start-2 lg:row-start-3 lg:mx-auto lg:mt-8 lg:w-full lg:max-w-xl" aria-label="Aujourd'hui">
 	{#if now !== null && boxes}
 		{#if opening}
 			<div class="glass rounded-3xl p-6 shadow-xl">
