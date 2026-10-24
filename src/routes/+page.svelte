@@ -4,11 +4,11 @@
 	import * as Dialog from '#lib/components/ui/dialog/index.js';
 	import Bow from '#lib/components/decor/Bow.svelte';
 	import Countdown from '#lib/components/calendar/Countdown.svelte';
-	import DayBox from '#lib/components/calendar/DayBox.svelte';
+	import Tree from '#lib/components/calendar/Tree.svelte';
+	import { splash } from '#lib/components/decor/splash.svelte.js';
 	import DayDetail from '#lib/components/calendar/DayDetail.svelte';
 	import { formatDay } from '#lib/components/calendar/format.js';
 	import { giftColor } from '#lib/components/calendar/gift.js';
-	import { pop } from '#lib/components/calendar/reveal.js';
 	import { boxState, prizeShownAt, revealAt, todayOf } from '#lib/calendar.js';
 	import { DAY_COUNT, lotForDay } from '#lib/lots.js';
 	import { editionYear, lots, results } from '#lib/data.js';
@@ -39,7 +39,7 @@
 	// Confetti once per day: when the winners appear live, or on the first visit after 08:00.
 	let previousKind: string | null = null;
 	$effect(() => {
-		const kind = todayKind;
+		const kind = splash.open ? todayKind : null;
 		if (kind === 'revealed' && previousKind !== 'revealed' && today !== null) {
 			const key = `confetti-${editionYear}-${today}`;
 			let seen = false;
@@ -49,7 +49,9 @@
 			} catch {
 				// Storage unavailable: celebrate anyway.
 			}
-			if (!seen || previousKind !== null) celebrate();
+			// On arrival, wait for the splash window to open and the tree to grow first.
+			if (previousKind !== null) celebrate();
+			else if (!seen) setTimeout(celebrate, 2600);
 		}
 		previousKind = kind;
 	});
@@ -87,7 +89,16 @@
 	<p class="mt-3 text-lg text-muted-foreground">24 jours, 24 cadeaux, un tirage chaque matin à 8h.</p>
 </div>
 
-<section class={['mt-8', now === null && 'min-h-56']} aria-label="Aujourd'hui">
+<section class="mt-6" aria-labelledby="grid-title">
+	<h2 id="grid-title" class="sr-only">Les 24 cadeaux</h2>
+	<div class="min-h-[calc(min(11.8vw,4.75rem)*11)]">
+		{#if boxes && splash.open}
+			<Tree {lots} {boxes} {today} {unlocksAt} {unlocksShort} onselect={(day) => (selected = day)} />
+		{/if}
+	</div>
+</section>
+
+<section class="mt-10" aria-label="Aujourd'hui">
 	{#if now !== null && boxes}
 		{#if opening}
 			<div class="glass rounded-3xl p-6 shadow-xl">
@@ -129,25 +140,7 @@
 	{/if}
 </section>
 
-<section class="mt-12" aria-labelledby="grid-title">
-	<h2 id="grid-title" class="text-2xl font-bold tracking-tight">Les 24 cadeaux</h2>
-	<div class="mt-5 grid min-h-[60vw] grid-cols-4 gap-2.5 sm:min-h-96 sm:grid-cols-6 sm:gap-4">
-		{#if boxes}
-			{#each lots as lot, i (lot.day)}
-				<div in:pop={{ delay: i * 28 }}>
-					<DayBox
-						{lot}
-						box={boxes[i]}
-						today={lot.day === today}
-						unlocksAt={unlocksAt(lot.day)}
-						unlocksShort={unlocksShort(lot.day)}
-						onselect={() => (selected = lot.day)}
-					/>
-				</div>
-			{/each}
-		{/if}
-	</div>
-</section>
+
 
 <Dialog.Root bind:open={() => selected !== null, (open) => !open && (selected = null)}>
 	{#if selected !== null && boxes && now !== null}
