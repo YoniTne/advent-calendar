@@ -1,10 +1,15 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import confetti from 'canvas-confetti';
 	import * as Dialog from '#lib/components/ui/dialog/index.js';
+	import Bow from '#lib/components/decor/Bow.svelte';
+	import Countdown from '#lib/components/calendar/Countdown.svelte';
 	import DayBox from '#lib/components/calendar/DayBox.svelte';
 	import DayDetail from '#lib/components/calendar/DayDetail.svelte';
 	import { formatDay } from '#lib/components/calendar/format.js';
-	import { boxState, countdown, prizeShownAt, revealAt, todayOf } from '#lib/calendar.js';
+	import { giftColor } from '#lib/components/calendar/gift.js';
+	import { pop } from '#lib/components/calendar/reveal.js';
+	import { boxState, prizeShownAt, revealAt, todayOf } from '#lib/calendar.js';
 	import { DAY_COUNT, lotForDay } from '#lib/lots.js';
 	import { editionYear, lots, results } from '#lib/data.js';
 
@@ -21,14 +26,47 @@
 		return () => clearInterval(id);
 	});
 
-	const states = $derived(now === null ? null : lots.map((lot) => boxState(editionYear, lot.day, results, now!)));
+	const boxes = $derived(now === null ? null : lots.map((lot) => boxState(editionYear, lot.day, results, now!)));
 	const today = $derived(now === null ? null : todayOf(editionYear, now));
 	const next = $derived.by(() => {
 		const day = (today ?? 0) + 1;
-		return states && day <= DAY_COUNT && states[day - 1].kind === 'announced' ? day : null;
+		return boxes && day <= DAY_COUNT && boxes[day - 1].kind === 'announced' ? day : null;
 	});
 	const opening = $derived(now !== null && now < prizeShownAt(editionYear, 1));
 	const over = $derived(now !== null && !opening && today === null && next === null);
+	const todayKind = $derived(boxes && today !== null ? boxes[today - 1].kind : null);
+
+	// Confetti once per day: when the winners appear live, or on the first visit after 08:00.
+	let previousKind: string | null = null;
+	$effect(() => {
+		const kind = todayKind;
+		if (kind === 'revealed' && previousKind !== 'revealed' && today !== null) {
+			const key = `confetti-${editionYear}-${today}`;
+			let seen = false;
+			try {
+				seen = localStorage.getItem(key) === '1';
+				localStorage.setItem(key, '1');
+			} catch {
+				// Storage unavailable: celebrate anyway.
+			}
+			if (!seen || previousKind !== null) celebrate();
+		}
+		previousKind = kind;
+	});
+
+	function celebrate() {
+		const colors = ['#c8283f', '#e8c46a', '#2f7a5c', '#e04f86', '#3b55b5'];
+		const burst = (x: number) =>
+			confetti({ particleCount: 90, spread: 75, startVelocity: 45, origin: { x, y: 0.35 }, colors, disableForReducedMotion: true });
+		burst(0.25);
+		setTimeout(() => burst(0.75), 250);
+	}
+
+	const unlocksAt = (day: number) =>
+		day === 1 ? 'le 30 novembre à 18h' : `le ${formatDay(prizeShownAt(editionYear, day)).replace(/^\S+ /, '')} à 18h`;
+
+	const shortDay = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', timeZone: 'Europe/Paris' });
+	const unlocksShort = (day: number) => `${shortDay.format(prizeShownAt(editionYear, day))} · 18h`;
 
 	let selected = $state<number | null>(null);
 </script>
@@ -38,73 +76,94 @@
 	<meta name="description" content="Un lot par jour du 1er au 24 décembre, tiré au sort chaque matin à 8h." />
 </svelte:head>
 
-<p class="text-sm font-medium text-primary">Club électronique · INSSET</p>
-<h1 class="mt-1 text-display">Calendrier de l'avent {editionYear}</h1>
+<div class="text-center sm:text-left">
+	<p class="glass inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
+		<span class="text-gold">✦</span> Club électronique · INSSET
+	</p>
+	<h1 class="mt-4 text-display">
+		<span class="festive-text">Calendrier de l'avent</span>
+		<span class="block text-foreground/90">{editionYear}</span>
+	</h1>
+	<p class="mt-3 text-lg text-muted-foreground">24 jours, 24 cadeaux, un tirage chaque matin à 8h.</p>
+</div>
 
-<section class={['mt-8', now === null && 'min-h-48']} aria-label="Aujourd'hui">
-	{#if now !== null && states}
+<section class={['mt-8', now === null && 'min-h-56']} aria-label="Aujourd'hui">
+	{#if now !== null && boxes}
 		{#if opening}
-			<div class="rounded-3xl border border-border bg-card p-6 shadow-sm">
-				<p class="text-muted-foreground">Premier lot dévoilé le 30 novembre à 18h</p>
-				<p class="mt-1 text-3xl font-semibold tracking-tight tabular-nums">
-					{countdown(prizeShownAt(editionYear, 1), now)}
-				</p>
+			<div class="glass rounded-3xl p-6 shadow-xl">
+				<p class="mb-3 font-medium text-muted-foreground">Premier cadeau dévoilé le 30 novembre à 18h</p>
+				<Countdown target={prizeShownAt(editionYear, 1)} {now} />
 			</div>
 		{:else if over}
-			<div class="rounded-3xl border border-border bg-card p-6 shadow-sm">
-				<p class="text-xl font-semibold tracking-tight">Le calendrier est terminé.</p>
+			<div class="glass rounded-3xl p-6 shadow-xl">
+				<p class="text-2xl font-bold tracking-tight">🎄 Le calendrier est terminé.</p>
 				<p class="mt-1 text-muted-foreground">Merci à toutes et à tous, et joyeuses fêtes !</p>
 			</div>
 		{/if}
 
-		<div class="grid gap-3 sm:grid-cols-[3fr_2fr]">
+		<div class="grid gap-4 sm:grid-cols-[3fr_2fr]">
 			{#if today !== null}
-				<article class="rounded-3xl border border-border bg-card p-6 shadow-sm">
-					<p class="text-sm font-medium text-muted-foreground first-letter:uppercase">
+				<article class="glass glow-ring rounded-3xl p-6 shadow-xl" style:--gift={giftColor(today)}>
+					<p class="text-sm font-semibold text-(--gift) first-letter:uppercase">
 						Aujourd'hui · {formatDay(revealAt(editionYear, today))}
 					</p>
 					<div class="mt-3">
-						<DayDetail lot={lotForDay(lots, today)} state={states[today - 1]} {now} />
+						<DayDetail lot={lotForDay(lots, today)} box={boxes[today - 1]} {now} />
 					</div>
 				</article>
 			{/if}
 			{#if next !== null}
-				<article class="self-start rounded-3xl bg-accent p-6 text-accent-foreground">
-					<p class="text-sm font-medium opacity-80 first-letter:uppercase">
+				<article
+					class="gift-paper relative self-start overflow-hidden rounded-3xl p-6 text-white shadow-xl"
+					style:--gift={giftColor(next)}
+				>
+					<Bow class="absolute -top-2 -right-3 w-24 rotate-12 opacity-90" />
+					<p class="text-sm font-semibold opacity-85 first-letter:uppercase">
 						Demain · {formatDay(revealAt(editionYear, next))}
 					</p>
-					<h3 class="mt-3 text-xl leading-tight font-semibold tracking-tight">{lotForDay(lots, next).title}</h3>
-					<p class="mt-1 text-sm opacity-80">{lotForDay(lots, next).description}</p>
+					<h3 class="mt-3 text-xl leading-tight font-bold tracking-tight">{lotForDay(lots, next).title}</h3>
+					<p class="mt-1 text-sm opacity-85">{lotForDay(lots, next).description}</p>
 				</article>
 			{/if}
 		</div>
 	{/if}
 </section>
 
-<section class="mt-10" aria-labelledby="grid-title">
-	<h2 id="grid-title" class="text-xl font-semibold tracking-tight">Les 24 cases</h2>
-	<div class="mt-4 grid grid-cols-4 gap-2 sm:grid-cols-6 sm:gap-3">
-		{#each lots as lot (lot.day)}
-			<DayBox
-				{lot}
-				state={states ? states[lot.day - 1] : null}
-				today={lot.day === today}
-				onselect={() => (selected = lot.day)}
-			/>
-		{/each}
+<section class="mt-12" aria-labelledby="grid-title">
+	<h2 id="grid-title" class="text-2xl font-bold tracking-tight">Les 24 cadeaux</h2>
+	<div class="mt-5 grid min-h-[60vw] grid-cols-4 gap-2.5 sm:min-h-96 sm:grid-cols-6 sm:gap-4">
+		{#if boxes}
+			{#each lots as lot, i (lot.day)}
+				<div in:pop={{ delay: i * 28 }}>
+					<DayBox
+						{lot}
+						box={boxes[i]}
+						today={lot.day === today}
+						unlocksAt={unlocksAt(lot.day)}
+						unlocksShort={unlocksShort(lot.day)}
+						onselect={() => (selected = lot.day)}
+					/>
+				</div>
+			{/each}
+		{/if}
 	</div>
 </section>
 
 <Dialog.Root bind:open={() => selected !== null, (open) => !open && (selected = null)}>
-	{#if selected !== null && states && now !== null}
-		<Dialog.Content>
-			<Dialog.Header>
-				<Dialog.Title class="first-letter:uppercase">
-					Jour {selected} · {formatDay(revealAt(editionYear, selected))}
-				</Dialog.Title>
-			</Dialog.Header>
-			<div>
-				<DayDetail lot={lotForDay(lots, selected)} state={states[selected - 1]} {now} />
+	{#if selected !== null && boxes && now !== null}
+		<Dialog.Content class="overflow-hidden p-0" style={`--gift: ${giftColor(selected)}`}>
+			<div class="gift-paper relative h-24">
+				<Bow class="absolute bottom-0 left-1/2 w-28 -translate-x-1/2 translate-y-1/3" />
+			</div>
+			<div class="px-6 pb-6">
+				<Dialog.Header>
+					<Dialog.Title class="font-semibold text-(--gift) first-letter:uppercase">
+						Jour {selected} · {formatDay(revealAt(editionYear, selected))}
+					</Dialog.Title>
+				</Dialog.Header>
+				<div class="mt-3">
+					<DayDetail lot={lotForDay(lots, selected)} box={boxes[selected - 1]} {now} />
+				</div>
 			</div>
 		</Dialog.Content>
 	{/if}
