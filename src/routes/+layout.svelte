@@ -5,6 +5,7 @@
 	import favicon from '#lib/assets/favicon.svg';
 	import Lights from '#lib/components/decor/Lights.svelte';
 	import Snow from '#lib/components/decor/Snow.svelte';
+	import Splash from '#lib/components/decor/Splash.svelte';
 	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
@@ -21,6 +22,7 @@
 	<meta name="theme-color" content="#0c1916" media="(prefers-color-scheme: dark)" />
 </svelte:head>
 
+<Splash />
 <Snow />
 
 <header class="material sticky top-0 z-40">

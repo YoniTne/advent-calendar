@@ -279,3 +279,25 @@
 		}
 	}
 }
+
+/* ---------- Splash screen ---------- */
+
+html[data-splash='off'] .splash {
+	display: none;
+}
+
+/* Logo strokes are drawn by animating the dash offset (paths use pathLength="1"). */
+.splash-logo path {
+	stroke-dasharray: 1;
+	stroke-dashoffset: 1;
+}
+
+/* Failsafe: never trap the page behind the splash if the script does not run. */
+.splash {
+	animation: splash-failsafe 0s 6s forwards;
+}
+@keyframes splash-failsafe {
+	to {
+		visibility: hidden;
+	}
+}
