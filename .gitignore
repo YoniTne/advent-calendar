@@ -1,0 +1,25 @@
+# Dependencies and build
+node_modules/
+.svelte-kit/
+build/
+dist/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# PERSONAL DATA — never commit
+*.csv
+!tests/fixtures/**/*.csv
+/participants*
+*.b64
+private/
+
+# Misc
+.DS_Store
+*.log
+coverage/
+
+# Vite
+vite.config.ts.timestamp-*

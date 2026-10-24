@@ -1,0 +1,41 @@
+# Dress rehearsal: runs the draw in CI on a past date, without committing or deploying anything.
+# The secret must hold the list matching data/commitment.json (the simulation list until November 30).
+name: draw-rehearsal
+
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Draw up to this past December date (YYYY-12-DD)'
+        required: true
+        default: '2025-12-24'
+      fresh:
+        description: 'Start from empty results (draw every day again)'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  rehearsal:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Reset results
+        if: inputs.fresh
+        run: echo '{}' > data/results.json
+      - name: Draw
+        run: npm run draw
+        env:
+          PARTICIPANTS_CSV_B64: ${{ secrets.PARTICIPANTS_CSV_B64 }}
+          DRAW_DATE: ${{ inputs.date }}
+      - name: Verify
+        run: npm run draw:verify
+        env:
+          PARTICIPANTS_CSV_B64: ${{ secrets.PARTICIPANTS_CSV_B64 }}
