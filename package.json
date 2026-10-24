@@ -14,7 +14,8 @@
 		"test": "npm run test:unit -- --run",
 		"draw": "tsx scripts/draw.ts",
 		"draw:verify": "tsx scripts/draw.ts verify",
-		"prepare-participants": "tsx scripts/prepare-participants.ts"
+		"prepare-participants": "tsx scripts/prepare-participants.ts",
+		"simulate": "tsx scripts/simulate.ts"
 	},
 	"devDependencies": {
 		"@fontsource-variable/inter": "^5.3.0",
