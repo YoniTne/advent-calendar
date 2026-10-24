@@ -39,11 +39,11 @@
 
 <h1 class="text-display">Règlement & fonctionnement</h1>
 
-<!-- Desktop: the rules on the left, the fairness proof pinned on the right. -->
-<div class="mt-8 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:gap-10">
-	<div class="space-y-4">
+<!-- Desktop: the rules on the left, the fairness proof on the right; both columns end at the same height. -->
+<div class="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:gap-10">
+	<div class="flex flex-col gap-4">
 		{#each sections as section (section.title)}
-			<section class="glass rounded-3xl p-6 shadow-lg">
+			<section class="glass flex-1 rounded-3xl p-6 shadow-lg">
 				<h2 class="text-xl font-semibold tracking-tight">{section.title}</h2>
 				{#each section.body as paragraph, i (i)}
 					<p class="mt-2 leading-relaxed text-foreground/80">{paragraph}</p>
@@ -52,26 +52,23 @@
 		{/each}
 	</div>
 
-	<!-- Sticky on a wrapper: .glow-ring sets position: relative, which would override sticky. -->
-	<div class="lg:sticky lg:top-24">
-		<section class="glass glow-ring rounded-3xl p-6 shadow-xl">
-			<h2 class="text-xl font-semibold tracking-tight">Un tirage vérifiable</h2>
-			<p class="mt-2 leading-relaxed text-foreground/80">
-				Personne, pas même le club, ne peut choisir les gagnants. Le 1er décembre, nous publions l’empreinte de la liste
-				des inscrits : la liste ne peut plus changer sans que ça se voie. Chaque matin, le hasard vient de
-				<a class="text-primary underline underline-offset-2" href="https://drand.love">drand</a>, une balise publique qui
-				produit toutes les 3 secondes un nombre aléatoire que personne ne peut prévoir. Le tirage utilise celui de 7h45
-				pile, et le programme qui calcule les gagnants est
-				<a class="text-primary underline underline-offset-2" href={REPOSITORY_URL}>public</a> : chacun peut refaire le calcul.
-			</p>
-			<dl class="mt-4 divide-y divide-border rounded-2xl border border-border bg-card/70 text-sm">
-				{#each proof as item (item.label)}
-					<div class="px-4 py-3">
-						<dt class="text-muted-foreground">{item.label}</dt>
-						<dd class={['mt-0.5 break-all', item.mono && 'font-mono text-xs']}>{item.value}</dd>
-					</div>
-				{/each}
-			</dl>
-		</section>
-	</div>
+	<section class="glass glow-ring rounded-3xl p-6 shadow-xl">
+		<h2 class="text-xl font-semibold tracking-tight">Un tirage vérifiable</h2>
+		<p class="mt-2 leading-relaxed text-foreground/80">
+			Personne, pas même le club, ne peut choisir les gagnants. Le 1er décembre, nous publions l’empreinte de la liste
+			des inscrits : la liste ne peut plus changer sans que ça se voie. Chaque matin, le hasard vient de
+			<a class="text-primary underline underline-offset-2" href="https://drand.love">drand</a>, une balise publique qui
+			produit toutes les 3 secondes un nombre aléatoire que personne ne peut prévoir. Le tirage utilise celui de 7h45
+			pile, et le programme qui calcule les gagnants est
+			<a class="text-primary underline underline-offset-2" href={REPOSITORY_URL}>public</a> : chacun peut refaire le calcul.
+		</p>
+		<dl class="mt-4 divide-y divide-border rounded-2xl border border-border bg-card/70 text-sm">
+			{#each proof as item (item.label)}
+				<div class="px-4 py-3">
+					<dt class="text-muted-foreground">{item.label}</dt>
+					<dd class={['mt-0.5 break-all', item.mono && 'font-mono text-xs']}>{item.value}</dd>
+				</div>
+			{/each}
+		</dl>
+	</section>
 </div>
