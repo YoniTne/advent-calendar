@@ -1,13 +1,51 @@
 <script lang="ts">
 	import './layout.css';
+	import { resolve } from '$app/paths';
+	import { page } from '$app/state';
 	import favicon from '#lib/assets/favicon.svg';
 	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
+
+	const links = [
+		{ href: resolve('/'), label: 'Calendrier' },
+		{ href: resolve('/reglement'), label: 'Règlement' }
+	];
 </script>
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<meta name="theme-color" content="#f9f6ef" media="(prefers-color-scheme: light)" />
+	<meta name="theme-color" content="#0f1c17" media="(prefers-color-scheme: dark)" />
 </svelte:head>
 
-{@render children()}
+<header class="material sticky top-0 z-40 border-b border-border/60">
+	<nav class="mx-auto flex h-14 max-w-4xl items-center justify-between px-4">
+		<a href={resolve('/')} class="flex items-center gap-2 font-semibold tracking-tight">
+			<span aria-hidden="true" class="text-gold">✦</span>
+			<span>Club électronique</span>
+		</a>
+		<ul class="flex gap-1 text-sm">
+			{#each links as link (link.href)}
+				<li>
+					<a
+						href={link.href}
+						aria-current={page.url.pathname === link.href ? 'page' : undefined}
+						class="rounded-full px-3 py-1.5 text-muted-foreground transition-colors duration-100 hover:text-foreground active:bg-secondary aria-[current=page]:bg-secondary aria-[current=page]:text-foreground"
+					>
+						{link.label}
+					</a>
+				</li>
+			{/each}
+		</ul>
+	</nav>
+</header>
+
+<main class="mx-auto max-w-4xl px-4 pt-8 pb-16">
+	{@render children()}
+</main>
+
+<footer class="mx-auto max-w-4xl px-4 pb-10 text-center text-xs text-muted-foreground">
+	Club électronique de l'INSSET · Tirage vérifiable,
+	<a class="underline underline-offset-2" href="https://github.com/YoniTne/advent-calendar">code public</a>
+</footer>
