@@ -56,7 +56,9 @@
 	Club électronique de l'INSSET · Tirage vérifiable,
 	<a class="underline underline-offset-2" href="https://github.com/YoniTne/advent-calendar">code public</a>
 	· Photo :
-	<a class="underline underline-offset-2" href="https://commons.wikimedia.org/wiki/File:Beaulieu_Christmas_Trees_(Unsplash).jpg"
-		>Annie Spratt</a
-	>, CC0
+	<a
+		class="underline underline-offset-2"
+		href="https://commons.wikimedia.org/wiki/File:Aurora_borealis_over_Eielson_Air_Force_Base,_Alaska.jpg"
+		>US Air Force, Joshua Strang</a
+	>, domaine public
 </footer>
