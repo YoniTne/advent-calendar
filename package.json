@@ -22,6 +22,7 @@
 		"@tailwindcss/vite": "^4.3.0",
 		"@types/node": "^24.19.2",
 		"cn": "^0.5.0",
+		"drand-client": "^1.4.2",
 		"shadcn-svelte": "^1.7.1",
 		"svelte": "^5.57.1",
 		"svelte-check": "^4.6.0",
