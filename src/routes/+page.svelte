@@ -78,7 +78,9 @@
 	<meta name="description" content="Un lot par jour du 1er au 24 décembre, tiré au sort chaque matin à 8h." />
 </svelte:head>
 
-<div class="text-center sm:text-left">
+<!-- Phone: title, tree, today. Desktop: title and today on the left, the tree on the right. -->
+<div class="grid items-start gap-x-14 lg:grid-cols-[minmax(0,1fr)_auto] lg:grid-rows-[auto_1fr]">
+<div class="lg:col-start-1 lg:row-start-1">
 	<p class="glass inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
 		<span class="text-gold">✦</span> Club électronique · INSSET
 	</p>
@@ -89,16 +91,19 @@
 	<p class="mt-3 text-lg text-muted-foreground">24 jours, 24 cadeaux, un tirage chaque matin à 8h.</p>
 </div>
 
-<section class="mt-6" aria-labelledby="grid-title">
+<section
+	class="mt-6 [--s:min(11.8vw,4.75rem)] lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:[--s:min(6.2vw,4.75rem)]"
+	aria-labelledby="grid-title"
+>
 	<h2 id="grid-title" class="sr-only">Les 24 cadeaux</h2>
-	<div class="min-h-[calc(min(11.8vw,4.75rem)*11)]">
+	<div class="min-h-[calc(var(--s)*10)]">
 		{#if boxes && splash.open}
 			<Tree {lots} {boxes} {today} {unlocksAt} {unlocksShort} onselect={(day) => (selected = day)} />
 		{/if}
 	</div>
 </section>
 
-<section class="mt-10" aria-label="Aujourd'hui">
+<section class="mt-10 lg:col-start-1 lg:row-start-2 lg:mt-8" aria-label="Aujourd'hui">
 	{#if now !== null && boxes}
 		{#if opening}
 			<div class="glass rounded-3xl p-6 shadow-xl">
@@ -112,7 +117,7 @@
 			</div>
 		{/if}
 
-		<div class="grid gap-4 sm:grid-cols-[3fr_2fr]">
+		<div class="grid gap-4 sm:grid-cols-[3fr_2fr] lg:grid-cols-1">
 			{#if today !== null}
 				<article class="glass glow-ring rounded-3xl p-6 shadow-xl" style:--gift={giftColor(today)}>
 					<p class="text-sm font-semibold text-(--gift) first-letter:uppercase">
@@ -139,6 +144,7 @@
 		</div>
 	{/if}
 </section>
+</div>
 
 
 

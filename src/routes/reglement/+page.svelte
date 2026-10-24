@@ -37,6 +37,7 @@
 	<title>Règlement & fonctionnement · Calendrier de l'avent</title>
 </svelte:head>
 
+<div class="max-w-3xl">
 <h1 class="text-display">Règlement & fonctionnement</h1>
 
 <div class="mt-8 space-y-8">
@@ -68,4 +69,5 @@
 			{/each}
 		</dl>
 	</section>
+</div>
 </div>

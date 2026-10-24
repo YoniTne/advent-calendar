@@ -79,14 +79,14 @@
 	</div>
 {/snippet}
 
-<div class="relative mx-auto w-fit pt-[calc(var(--s)*1.5)] [--g:calc(var(--s)*0.16)] [--s:min(11.8vw,4.75rem)]">
+<div class="relative mx-auto w-fit pt-[calc(var(--s)*1.5)] [--g:calc(var(--s)*0.16)]">
 	<!-- Tree silhouette behind the tiers -->
 	<svg
 		in:grow
 		viewBox="0 0 100 100"
 		preserveAspectRatio="none"
 		aria-hidden="true"
-		class="absolute top-[calc(var(--s)*0.9)] left-1/2 h-[calc((var(--s)+var(--g))*6+var(--s)*0.85)] w-[calc(var(--s)*8.6)] -translate-x-1/2 drop-shadow-[0_1.5rem_2.5rem_oklch(0.4_0.1_160/45%)]"
+		class="absolute top-[calc(var(--s)*0.9)] left-1/2 h-[calc((var(--s)+var(--g))*6+var(--s)*0.85)] w-[min(calc(var(--s)*8.6),calc(100vw-1.5rem))] -translate-x-1/2 drop-shadow-[0_1.5rem_2.5rem_oklch(0.4_0.1_160/45%)]"
 	>
 		<defs>
 			<linearGradient id="pine" x1="0" y1="0" x2="0" y2="1">
