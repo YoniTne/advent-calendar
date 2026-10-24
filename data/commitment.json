@@ -1,0 +1,12 @@
+{
+	"edition": "advent-insset-2026",
+	"participantCount": 120,
+	"listSha256": "8d98c8a13dab1198d688a2cc4ca78f6d0d0669c5af955eb2da81b76fc23e71fe",
+	"drand": {
+		"network": "quicknet",
+		"chainHash": "52db9ba70e0cc0f6eaf7803dd07447a1f5477735fd3f661792ba94600c84e971"
+	},
+	"drawTime": "07:45:00",
+	"timezone": "Europe/Paris",
+	"publishedAt": "2025-12-01"
+}
