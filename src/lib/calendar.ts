@@ -1,7 +1,7 @@
 // What the site shows for each box at a given instant (docs/SPEC.md §7), always in Paris time.
-import { DAY_COUNT } from './lots';
-import { parisDate, parisToUnix } from './paris';
-import type { DayResult, Results } from './types';
+import { DAY_COUNT } from './lots.ts';
+import { parisDate, parisToUnix } from './paris.ts';
+import type { DayResult, Prize, Results } from './types.ts';
 
 /** The prize of day D is shown on day D−1 at this time. */
 export const PRIZE_TIME = '18:00:00';
@@ -17,6 +17,10 @@ export function prizeShownAt(year: number, day: number): number {
 	const eve = day === 1 ? `${year}-11-30` : dateOfDay(year, day - 1);
 	return parisToUnix(eve, PRIZE_TIME) * 1000;
 }
+
+/** The prizes already shown at `now`: the only ones a deployed build may contain. */
+export const prizesShownBy = (prizes: Prize[], year: number, now: number) =>
+	prizes.filter((prize) => prizeShownAt(year, prize.day) <= now);
 
 /** Instant (ms) the winners of `day` appear. */
 export const revealAt = (year: number, day: number) => parisToUnix(dateOfDay(year, day), REVEAL_TIME) * 1000;

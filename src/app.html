@@ -4,13 +4,6 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="text-scale" content="scale" />
-		<script>
-			// Skip the splash screen on repeat visits in the session and for reduced motion, before first paint.
-			try {
-				if (sessionStorage.getItem('splash-seen') || matchMedia('(prefers-reduced-motion: reduce)').matches)
-					document.documentElement.dataset.splash = 'off';
-			} catch (e) {}
-		</script>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">

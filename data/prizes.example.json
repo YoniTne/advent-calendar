@@ -1,0 +1,122 @@
+[
+	{
+		"day": 1,
+		"title": "Kit Arduino",
+		"description": "Une carte, des capteurs et de quoi bricoler."
+	},
+	{
+		"day": 2,
+		"title": "Fer à souder",
+		"description": "Un fer à souder réglable pour vos montages."
+	},
+	{
+		"day": 3,
+		"title": "Lot de LED",
+		"description": "Cent LED de toutes les couleurs."
+	},
+	{
+		"day": 4,
+		"title": "Raspberry Pi Pico",
+		"description": "Un microcontrôleur pour vos projets."
+	},
+	{
+		"day": 5,
+		"title": "Multimètre",
+		"description": "Pour mesurer tensions, courants et résistances."
+	},
+	{
+		"day": 6,
+		"title": "Breadboard",
+		"description": "Une plaque d’essai et ses fils."
+	},
+	{
+		"day": 7,
+		"title": "ESP32",
+		"description": "Un microcontrôleur Wi-Fi et Bluetooth."
+	},
+	{
+		"day": 8,
+		"title": "Kit de résistances",
+		"description": "Un assortiment de résistances."
+	},
+	{
+		"day": 9,
+		"title": "Écran OLED",
+		"description": "Un petit écran pour afficher vos données."
+	},
+	{
+		"day": 10,
+		"title": "Capteurs",
+		"description": "Température, humidité et luminosité."
+	},
+	{
+		"day": 11,
+		"title": "Pince à dénuder",
+		"description": "L’outil indispensable du câblage."
+	},
+	{
+		"day": 12,
+		"title": "Servomoteurs",
+		"description": "Deux servomoteurs pour vos robots."
+	},
+	{
+		"day": 13,
+		"title": "Ruban LED",
+		"description": "Un ruban de LED adressables."
+	},
+	{
+		"day": 14,
+		"title": "Kit de condensateurs",
+		"description": "Un assortiment de condensateurs."
+	},
+	{
+		"day": 15,
+		"title": "Module relais",
+		"description": "Pour piloter des charges plus puissantes."
+	},
+	{
+		"day": 16,
+		"title": "Tapis antistatique",
+		"description": "Un plan de travail protégé."
+	},
+	{
+		"day": 17,
+		"title": "Buzzer et boutons",
+		"description": "De quoi faire du bruit."
+	},
+	{
+		"day": 18,
+		"title": "Alimentation de labo",
+		"description": "Une alimentation réglable."
+	},
+	{
+		"day": 19,
+		"title": "Kit de câbles Dupont",
+		"description": "Mâle-mâle, mâle-femelle, femelle-femelle."
+	},
+	{
+		"day": 20,
+		"title": "Loupe de soudage",
+		"description": "Une troisième main avec loupe."
+	},
+	{
+		"day": 21,
+		"title": "Capteur ultrason",
+		"description": "Pour mesurer des distances."
+	},
+	{
+		"day": 22,
+		"title": "Module Bluetooth",
+		"description": "Pour connecter vos montages."
+	},
+	{
+		"day": 23,
+		"title": "Station de soudage",
+		"description": "Une station de soudage complète."
+	},
+	{
+		"day": 24,
+		"title": "Gros lot surprise",
+		"description": "Le lot mystère du dernier jour."
+	}
+]

@@ -1,170 +1,98 @@
 [
 	{
 		"day": 1,
-		"title": "Kit Arduino",
-		"description": "Une carte, des capteurs et de quoi bricoler.",
-		"image": "lots/01.webp",
 		"winners": 1
 	},
 	{
 		"day": 2,
-		"title": "Fer à souder",
-		"description": "Un fer à souder réglable pour vos montages.",
-		"image": "lots/02.webp",
 		"winners": 1
 	},
 	{
 		"day": 3,
-		"title": "Lot de LED",
-		"description": "Cent LED de toutes les couleurs.",
-		"image": "lots/03.webp",
 		"winners": 3
 	},
 	{
 		"day": 4,
-		"title": "Raspberry Pi Pico",
-		"description": "Un microcontrôleur pour vos projets.",
-		"image": "lots/04.webp",
 		"winners": 2
 	},
 	{
 		"day": 5,
-		"title": "Multimètre",
-		"description": "Pour mesurer tensions, courants et résistances.",
-		"image": "lots/05.webp",
 		"winners": 1
 	},
 	{
 		"day": 6,
-		"title": "Breadboard",
-		"description": "Une plaque d’essai et ses fils.",
-		"image": "lots/06.webp",
 		"winners": 3
 	},
 	{
 		"day": 7,
-		"title": "ESP32",
-		"description": "Un microcontrôleur Wi-Fi et Bluetooth.",
-		"image": "lots/07.webp",
 		"winners": 2
 	},
 	{
 		"day": 8,
-		"title": "Kit de résistances",
-		"description": "Un assortiment de résistances.",
-		"image": "lots/08.webp",
 		"winners": 2
 	},
 	{
 		"day": 9,
-		"title": "Écran OLED",
-		"description": "Un petit écran pour afficher vos données.",
-		"image": "lots/09.webp",
 		"winners": 1
 	},
 	{
 		"day": 10,
-		"title": "Capteurs",
-		"description": "Température, humidité et luminosité.",
-		"image": "lots/10.webp",
 		"winners": 2
 	},
 	{
 		"day": 11,
-		"title": "Pince à dénuder",
-		"description": "L’outil indispensable du câblage.",
-		"image": "lots/11.webp",
 		"winners": 1
 	},
 	{
 		"day": 12,
-		"title": "Servomoteurs",
-		"description": "Deux servomoteurs pour vos robots.",
-		"image": "lots/12.webp",
 		"winners": 1
 	},
 	{
 		"day": 13,
-		"title": "Ruban LED",
-		"description": "Un ruban de LED adressables.",
-		"image": "lots/13.webp",
 		"winners": 1
 	},
 	{
 		"day": 14,
-		"title": "Kit de condensateurs",
-		"description": "Un assortiment de condensateurs.",
-		"image": "lots/14.webp",
 		"winners": 2
 	},
 	{
 		"day": 15,
-		"title": "Module relais",
-		"description": "Pour piloter des charges plus puissantes.",
-		"image": "lots/15.webp",
 		"winners": 2
 	},
 	{
 		"day": 16,
-		"title": "Tapis antistatique",
-		"description": "Un plan de travail protégé.",
-		"image": "lots/16.webp",
 		"winners": 1
 	},
 	{
 		"day": 17,
-		"title": "Buzzer et boutons",
-		"description": "De quoi faire du bruit.",
-		"image": "lots/17.webp",
 		"winners": 3
 	},
 	{
 		"day": 18,
-		"title": "Alimentation de labo",
-		"description": "Une alimentation réglable.",
-		"image": "lots/18.webp",
 		"winners": 1
 	},
 	{
 		"day": 19,
-		"title": "Kit de câbles Dupont",
-		"description": "Mâle-mâle, mâle-femelle, femelle-femelle.",
-		"image": "lots/19.webp",
 		"winners": 3
 	},
 	{
 		"day": 20,
-		"title": "Loupe de soudage",
-		"description": "Une troisième main avec loupe.",
-		"image": "lots/20.webp",
 		"winners": 1
 	},
 	{
 		"day": 21,
-		"title": "Capteur ultrason",
-		"description": "Pour mesurer des distances.",
-		"image": "lots/21.webp",
 		"winners": 2
 	},
 	{
 		"day": 22,
-		"title": "Module Bluetooth",
-		"description": "Pour connecter vos montages.",
-		"image": "lots/22.webp",
 		"winners": 2
 	},
 	{
 		"day": 23,
-		"title": "Station de soudage",
-		"description": "Une station de soudage complète.",
-		"image": "lots/23.webp",
 		"winners": 1
 	},
 	{
 		"day": 24,
-		"title": "Gros lot surprise",
-		"description": "Le lot mystère du dernier jour.",
-		"image": "lots/24.webp",
 		"winners": 1
 	}
 ]

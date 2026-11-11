@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { boxState, countdown, prizeShownAt, revealAt, todayOf } from './calendar';
+import { boxState, countdown, prizeShownAt, prizesShownBy, revealAt, todayOf } from './calendar';
 import type { DayResult, Results } from './types';
 
 const at = (iso: string) => Date.parse(iso);
@@ -10,6 +10,13 @@ describe('reveal times (Paris = UTC+1 in winter)', () => {
 	it('shows the prize the day before at 18:00, day 1 on November 30', () => {
 		expect(prizeShownAt(2026, 1)).toBe(at('2026-11-30T17:00:00Z'));
 		expect(prizeShownAt(2026, 5)).toBe(at('2026-12-04T17:00:00Z'));
+	});
+
+	it('keeps hidden prizes out of a build', () => {
+		const prizes = [1, 5, 6].map((day) => ({ day, title: 't', description: 'd' }));
+		const days = (iso: string) => prizesShownBy(prizes, 2026, at(iso)).map((p) => p.day);
+		expect(days('2026-11-30T16:59:59Z')).toEqual([]);
+		expect(days('2026-12-04T17:00:00Z')).toEqual([1, 5]);
 	});
 
 	it('shows winners at 08:00', () => {
