@@ -4,61 +4,35 @@
 	import { page } from '$app/state';
 	import favicon from '#lib/assets/favicon.svg';
 	import Logo from '#lib/components/decor/Logo.svelte';
-	import Snow from '#lib/components/decor/Snow.svelte';
-	import Splash from '#lib/components/decor/Splash.svelte';
 	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
-
-	const links = [
-		// On phones the logo already leads home, so this link only shows from sm up.
-		{ href: resolve('/'), label: 'Calendrier', phone: false },
-		{ href: resolve('/reglement'), label: 'Règlement', phone: true }
-	];
 </script>
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<meta name="theme-color" content="#f9f6ef" media="(prefers-color-scheme: light)" />
-	<meta name="theme-color" content="#0c1916" media="(prefers-color-scheme: dark)" />
+	<meta name="theme-color" content="#f2ead9" />
 </svelte:head>
 
-<Splash />
-<Snow />
-
-<header class="material sticky top-0 z-40">
-	<nav class="flex h-14 items-center justify-between px-4 sm:px-8">
-		<a href={resolve('/')} class="flex items-center gap-2.5 font-semibold tracking-tight whitespace-nowrap">
-			<Logo class="size-7 text-gold drop-shadow-[0_0_0.5rem_var(--gold)]" strokeWidth={14} />
-			<span>Calendrier de l'avent</span>
-		</a>
-		<ul class="flex gap-1 text-sm">
-			{#each links as link (link.href)}
-				<li class={[!link.phone && 'max-sm:hidden']}>
-					<a
-						href={link.href}
-						aria-current={page.url.pathname === link.href ? 'page' : undefined}
-						class="rounded-full px-3 py-1.5 text-muted-foreground transition-colors duration-100 hover:text-foreground active:bg-secondary aria-[current=page]:bg-secondary aria-[current=page]:text-foreground"
-					>
-						{link.label}
-					</a>
-				</li>
-			{/each}
-		</ul>
-	</nav>
+<header class="flex h-15 items-center justify-between gap-4 px-[clamp(1rem,4vw,3rem)] text-[0.9375rem] font-medium">
+	<a href={resolve('/')} class="flex items-center gap-2.5 whitespace-nowrap">
+		<Logo class="w-6.5 text-(--red)" strokeWidth={14} />
+		Club électronique · INSSET
+	</a>
+	<a
+		href={resolve('/reglement')}
+		aria-current={page.url.pathname === resolve('/reglement') ? 'page' : undefined}
+		class="underline decoration-1 underline-offset-4 aria-[current=page]:no-underline"
+	>
+		Règlement
+	</a>
 </header>
 
-<main class="w-full flex-1 px-4 pt-10 pb-16 sm:px-8">
+<main class="flex w-full flex-1 flex-col px-[clamp(1rem,4vw,3rem)]">
 	{@render children()}
 </main>
 
-<footer class="px-4 pt-4 pb-6 text-center text-xs text-muted-foreground">
+<footer class="px-4 py-4 text-center text-[0.8125rem]">
 	Club électronique de l'INSSET · Tirage vérifiable,
-	<a class="underline underline-offset-2" href="https://github.com/YoniTne/advent-calendar">code public</a>
-	· Photo :
-	<a
-		class="underline underline-offset-2"
-		href="https://commons.wikimedia.org/wiki/File:Aurora_borealis_over_Eielson_Air_Force_Base,_Alaska.jpg"
-		>US Air Force, Joshua Strang</a
-	>, domaine public
+	<a class="underline decoration-1 underline-offset-4" href="https://github.com/YoniTne/advent-calendar">code public</a>
 </footer>
