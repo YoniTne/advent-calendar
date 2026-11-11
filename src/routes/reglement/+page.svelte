@@ -1,11 +1,18 @@
 <script lang="ts">
-	import { commitment, editionYear, REPOSITORY_URL } from '#lib/data.js';
+	import { commitment, CONTACT_EMAIL, editionYear, REPOSITORY_URL } from '#lib/data.js';
 
-	const sections = [
+	const sections: { title: string; id?: string; body: string[] }[] = [
+		{
+			title: 'Qui organise ?',
+			body: [
+				`Le club d'électronique de l'INSSET organise ce calendrier de l'avent du 1er au 24 décembre ${editionYear}. La participation est gratuite et sans obligation d'achat.`
+			]
+		},
 		{
 			title: 'Qui peut participer ?',
 			body: [
-				`Les étudiants et personnels de l'INSSET inscrits via le formulaire du club avant le 30 novembre ${editionYear}. La liste est figée à la clôture.`
+				`Les étudiants et personnels de l'INSSET inscrits via le formulaire du club avant le 30 novembre ${editionYear}. La liste est figée à la clôture. Une seule inscription par personne.`,
+				'Les membres du bureau du club peuvent participer et gagner comme tout le monde : le tirage ne laisse à personne le moyen de choisir les gagnants.'
 			]
 		},
 		{
@@ -20,7 +27,33 @@
 			title: 'Récupérer son lot',
 			body: [
 				'Les gagnants sont prévenus par e-mail par le club. Les lots se récupèrent au local du club ; pour les tirages pendant les vacances, à la rentrée.',
-				'Un lot non réclamé retourne dans l’armoire du club. Il n’y a pas de nouveau tirage.'
+				`Un lot non réclamé avant la fin du mois de janvier ${editionYear + 1} retourne au club, sans nouveau tirage. Les lots ne sont ni échangeables ni remboursables.`
+			]
+		},
+		{
+			title: 'En cas de panne',
+			body: [
+				'Si le tirage automatique ne peut pas avoir lieu à l’heure prévue, il est relancé plus tard. Le résultat est le même : il dépend uniquement du nombre aléatoire de 7h45 et de la liste figée.',
+				'Le club peut modifier ou interrompre le calendrier si un événement indépendant de sa volonté l’y oblige ; il l’annonce alors sur ce site.'
+			]
+		},
+		{
+			title: 'Données personnelles',
+			id: 'donnees',
+			body: [
+				'Le club d’électronique de l’INSSET collecte votre nom, votre prénom et votre adresse e-mail via le formulaire d’inscription, sur la base de votre inscription volontaire. Ces données servent uniquement à réaliser le tirage et à prévenir les gagnants.',
+				'Le prénom et l’initiale du nom des gagnants sont publiés sur ce site et dans l’historique public du dépôt du projet, où ils restent consultables. La liste complète des inscrits n’est jamais publiée : seule son empreinte l’est.',
+				'La liste est conservée dans le formulaire Google du club et, sous forme de secret chiffré, chez GitHub, qui exécute le tirage. Elle est supprimée une fois les lots remis.',
+				`Vous pouvez demander l’accès à vos données, leur rectification ou leur suppression, ou retirer votre inscription, en écrivant à ${CONTACT_EMAIL}. Vous pouvez aussi saisir la CNIL (cnil.fr).`
+			]
+		},
+		{
+			title: 'Mentions légales',
+			id: 'mentions',
+			body: [
+				`Site édité par le club d’électronique de l’INSSET, association régie par la loi du 1er juillet 1901. Contact : ${CONTACT_EMAIL}.`,
+				'Hébergement : GitHub Pages, GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.',
+				'Ce site ne dépose aucun cookie et n’utilise aucun outil de mesure d’audience. Comme tout hébergeur, GitHub peut enregistrer l’adresse IP des visiteurs dans ses journaux techniques.'
 			]
 		}
 	];
@@ -44,7 +77,7 @@
 	<div class="cols">
 		<div>
 			{#each sections as section (section.title)}
-				<section class="rule">
+				<section class="rule" id={section.id}>
 					<h2>{section.title}</h2>
 					{#each section.body as paragraph, i (i)}
 						<p>{paragraph}</p>

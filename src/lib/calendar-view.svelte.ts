@@ -5,12 +5,12 @@ import { boxState, countdown, prizeShownAt, revealAt, todayOf, type BoxState } f
 import { formatDay } from './components/calendar/format';
 import { commitment, editionYear, lots, results } from './data';
 import { DAY_COUNT } from './lots';
-import type { Lot, Winner } from './types';
+import type { Lot, Prize, Winner } from './types';
 
 export interface DayView {
-	lot: Lot;
+	lot: Lot & Partial<Prize>;
 	box: BoxState;
-	/** False while the prize is still secret: the title must not be rendered. */
+	/** False while the prize is still secret, or not in this build yet: there is no title to render. */
 	open: boolean;
 	isToday: boolean;
 	/** "vendredi 5 décembre" */
@@ -33,7 +33,7 @@ export function useCalendar() {
 	let now = $state<number | null>(null);
 
 	onMount(() => {
-		// Development only: ?now=2025-12-05T07:59:50+01:00 starts a simulated clock at that instant.
+		// Development only: ?now=2026-12-05T07:59:50+01:00 starts a simulated clock at that instant.
 		const simulated = import.meta.env.DEV ? new URLSearchParams(location.search).get('now') : null;
 		const offset = simulated && !Number.isNaN(Date.parse(simulated)) ? Date.parse(simulated) - Date.now() : 0;
 		const tick = () => (now = Date.now() + offset);
@@ -53,7 +53,7 @@ export function useCalendar() {
 					return {
 						lot,
 						box,
-						open: box.kind !== 'locked',
+						open: box.kind !== 'locked' && lot.title !== undefined,
 						isToday: lot.day === today,
 						date: formatDay(revealAt(editionYear, lot.day)),
 						shortDate: short.format(revealAt(editionYear, lot.day)),

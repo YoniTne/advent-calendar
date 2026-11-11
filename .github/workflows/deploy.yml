@@ -1,11 +1,17 @@
 # Builds the static site from main and publishes it on GitHub Pages.
 # Runs on every push to main, and is called by daily-draw after a draw
 # (commits pushed with GITHUB_TOKEN do not trigger push workflows).
+# Prize texts come from the PRIZES_JSON_B64 secret; a build only holds the prizes already shown
+# (vite.config.ts), so an evening run puts the next day's prize online.
 name: deploy
 
 on:
   push:
     branches: [main]
+  schedule:
+    # 16:15 UTC = 17:15 Paris in winter: ahead of the 18:00 reveal, GitHub's cron often runs late.
+    - cron: '15 16 30 11 *'
+    - cron: '15 16 1-23 12 *'
   workflow_dispatch:
   workflow_call:
 
@@ -28,6 +34,8 @@ jobs:
       - run: npm test
       - name: Build
         run: BASE_PATH="/${GITHUB_REPOSITORY#*/}" npm run build
+        env:
+          PRIZES_JSON_B64: ${{ secrets.PRIZES_JSON_B64 }}
       - uses: actions/upload-pages-artifact@v4
         with:
           path: build

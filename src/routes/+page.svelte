@@ -11,7 +11,7 @@
 	let selected = $state<number | null>(null);
 	const shown = $derived(selected === null ? cal.featured : cal.days[selected - 1]);
 	// Tomorrow's prize, once it is announced (the day before at 18:00).
-	const next = $derived(cal.days.find((d) => d.box.kind === 'announced' && !d.isToday));
+	const next = $derived(cal.days.find((d) => d.open && d.box.kind === 'announced' && !d.isToday));
 
 	// Same tree as the current site: 24 crowns it, 4–9 form the lowest branch, 1–3 are the gifts at its foot.
 	const tiers = [[24], [22, 23], [19, 20, 21], [15, 16, 17, 18], [10, 11, 12, 13, 14], [4, 5, 6, 7, 8, 9]];

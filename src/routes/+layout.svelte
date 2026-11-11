@@ -35,4 +35,8 @@
 <footer class="px-4 py-4 text-center text-[0.8125rem]">
 	Club électronique de l'INSSET · Tirage vérifiable,
 	<a class="underline decoration-1 underline-offset-4" href="https://github.com/YoniTne/advent-calendar">code public</a>
+	·
+	<a class="underline decoration-1 underline-offset-4" href={resolve('/reglement') + '#mentions'}
+		>Mentions légales &amp; données personnelles</a
+	>
 </footer>

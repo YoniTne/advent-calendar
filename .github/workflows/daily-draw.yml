@@ -58,3 +58,5 @@ jobs:
       pages: write
       id-token: write
     uses: ./.github/workflows/deploy.yml
+    # The build needs PRIZES_JSON_B64.
+    secrets: inherit

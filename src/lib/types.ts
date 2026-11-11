@@ -1,12 +1,16 @@
 // Shared data types for the site and the draw scripts (formats in docs/SPEC.md §4).
 
-/** One calendar box, from `data/lots.json`. */
+/** One calendar box, from `data/lots.json`: only what the draw needs, public from the start. */
 export interface Lot {
+	day: number;
+	winners: number;
+}
+
+/** What a box holds. Private (PRIZES_JSON_B64 secret) until the eve of its day (docs/SPEC.md §4). */
+export interface Prize {
 	day: number;
 	title: string;
 	description: string;
-	image: string;
-	winners: number;
 }
 
 /** Published commitment, from `data/commitment.json`. */
