@@ -1,6 +1,6 @@
 {
 	"edition": "advent-insset-2026",
-	"participantCount": 120,
+	"participantCount": 65,
 	"listSha256": "8d98c8a13dab1198d688a2cc4ca78f6d0d0669c5af955eb2da81b76fc23e71fe",
 	"drand": {
 		"network": "quicknet",
