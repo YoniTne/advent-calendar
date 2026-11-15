@@ -86,9 +86,9 @@ describe('24 days', () => {
 	});
 
 	it('gives everything left when candidates run out', async () => {
-		const results = await runDraws('2025-12-24', {}, context(30));
+		const results = await runDraws('2025-12-24', {}, context(10));
 		const ids = Object.values(results).flatMap((r) => r.winners.map((w) => w.id));
-		expect(new Set(ids).size).toBe(30);
+		expect(new Set(ids).size).toBe(10);
 		expect(results['2025-12-24'].winners).toEqual([]);
 	});
 });
